@@ -18,9 +18,13 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'fullname',
+        'birthdate',
         'email',
+        'address',
         'password',
+        'phone',
+        'role_id',
     ];
 
     /**
@@ -42,4 +46,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function role(){
+        return $this->belongsTo('App\Models\Role');
+    }
+
+    public function favorite(){
+        return $this->hasMany('App\Models\Favorite');
+    }
 }
