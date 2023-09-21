@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/user/{id}',[App\Http\Controllers\UserController::class, 'findUser']);
+Route::get('/users',[App\Http\Controllers\UserController::class, 'index']);
