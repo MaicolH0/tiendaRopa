@@ -11,18 +11,38 @@ class UserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        if($this->method()=='PUT'){
+            // Edit form
+            return[
+                'fullname'  => 'required',
+                'birthdate'  => 'required',
+                'email'     => 'required|email|unique:users,email,'.$this->id,
+                'address'  => 'required',
+                'password'  => 'required|min:6',
+                'phone'     => 'required|numeric',
+                'role_id'   => 'required',
+            ];
+        }else{
+            // Create Form
+            return[
+                'fullname'  => 'required',
+                'birthdate'  => 'required',
+                'email'     => 'required|email|unique:users,email,'.$this->id,
+                'address'  => 'required',
+                'password'  => 'required|min:6',
+                'phone'     => 'required|numeric',
+                'role_id'   => 'required',
+            ];
+        }
     }
 }

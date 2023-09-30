@@ -7,7 +7,7 @@
         <div class="col-md-8">
             <div class="card">
                 <img src="{{ asset('images/elements/register.svg') }}" alt="img" width="150px" class="my-4 img-top-card">
-                <div class="card-header">
+                <div class="card-header-pelis text-uppercase text-center">
                     <i class="fa fa-user-edit"></i>
                         Registro
                 </div>
@@ -109,7 +109,7 @@
                         </div>
 
                         <div class="row mb-2 px-4">
-                                <button type="submit" class="btn btn-primary btn-block text-uppercae" style="background-color: #6C63FF">
+                                <button type="submit" class="btn btn-primary btn-block text-uppercae" style="background-color: #9B2B2B">
                                     Registro
                                     <i class="fa fa-save"></i>
                                 </button>

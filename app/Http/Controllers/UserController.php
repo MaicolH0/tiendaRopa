@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth'); 
+    }
 
     public function findUser(int $id){
         $user = User::find($id);
@@ -20,8 +26,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        dd($users);
+        if(Auth::user()->role->name != 'Admin'){
+            return redirect('home')->with('error','No puede acceder a este recurso');
+        }
+
+        //$users = User::all();
+        $users = User::paginate(10);
+        return view('elements.users.index')->with('users',$users);
     }
 
     /**
@@ -30,16 +41,24 @@ class UserController extends Controller
      */
     public function create()
     {
+        if(Auth::user()->role->name != 'Admin'){
+            return redirect('home')->with('error','No puede acceder a este recurso');
+        }
+
         $roles = Role::all();
-        dba_list($roles);
+        return view('elements.users.create')->with('roles',$roles);
     }
 
     /**
      * Recibir solicitud del formulario de creación del elemento y creación del registro
      * POST
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
+        if(Auth::user()->role->name != 'Admin'){
+            return redirect('home')->with('error','No puede acceder a este recurso');
+        }
+
         $user = new User;
 
         $user->fullname = $request->fullname;
@@ -52,7 +71,7 @@ class UserController extends Controller
         $user->role_id = $request->role_id;
         
         if($user->save()){
-            //redireccionar a la vista index
+            return redirect('users')->with('message','El usuario: '.$user->fullname.' ha sido creado existosamente!!');
         }
     }
 
@@ -62,8 +81,12 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
+        if(Auth::user()->role->name != 'Admin'){
+            return redirect('home')->with('error','No puede acceder a este recurso');
+        }
+
         $user = User::find($id);
-        dd($user);
+        return view('elements.users.show')->with('user',$user);
     }
 
     /**
@@ -72,8 +95,13 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
+        if(Auth::user()->role->name != 'Admin'){
+            return redirect('home')->with('error','No puede acceder a este recurso');
+        }
+
         $user = User::find($id);
-        dd($user);
+        $roles = Role::all();
+        return view('elements.users.edit')->with('user',$user)->with('roles',$roles);
     }
 
     /**
@@ -82,6 +110,10 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        if(Auth::user()->role->name != 'Admin'){
+            return redirect('home')->with('error','No puede acceder a este recurso');
+        }
+
         $user = User::find($id);
 
         $user->fullname = $request->fullname;
@@ -90,11 +122,10 @@ class UserController extends Controller
         $user->address = $request->address;
         $user->password = bcrypt($request->password);
         $user->phone = $request->phone;
-        //$user->photo codigo para subir foto
         $user->role_id = $request->role_id;
         
         if($user->save()){
-            //redireccionar a la vista index
+            return redirect('users')->with('message','El usuario: '.$user->fullname.' ha sido actualizado existosamente!!');
         }
     }
 
@@ -102,9 +133,15 @@ class UserController extends Controller
      * Eliminar un registro
      * DELETE
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        $user = User::find($id);
-        $user->delete();
+        if(Auth::user()->role->name != 'Admin'){
+            return redirect('home')->with('error','No puede acceder a este recurso');
+        }
+        
+        if($user->delete()){
+            return redirect('users')->with('message','El usuario: '.$user->fullname.' ha sido eliminado existosamente!!');
+        }
+
     }
 }

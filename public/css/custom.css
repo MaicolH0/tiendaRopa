@@ -1,21 +1,21 @@
 /* color: #9B2B2B */
 
 .bg-pelis{
-    background-color: #6C63FF;
+    background-color: #9B2B2B;
 }
 
 .btn-pelis{
-    background-color: #6C63FF;
+    background-color: #9B2B2B;
     color: white;
 }
 
 .btn-pelis:hover{
-    background-color: #6C63FF;
+    background-color: #9B2B2B;
     color: rgba(255, 255, 255, 0.427);
 }
 
 .card-header-pelis{
-    background-color: #6C63FF;
+    background-color: #9B2B2B;
     color: white;
     padding: 1rem 0rem 0.5rem 0rem;
 }
@@ -29,7 +29,7 @@
 }
 
 h1{
-    color: #2471A3;
+    color: #9B2B2B;
 }
 
 ul.pagination{
@@ -37,11 +37,11 @@ ul.pagination{
 }
 
 ul.pagination .page-item.active .page-link{
-    background-color: #2471A3;
-    border-color: #2c87c4;
+    background-color: #9B2B2B;
+    border-color: #9B2B2B;
     color: rgba(255, 255, 255, 0.8);
 }
 
 ul.pagination .page-item .page-link{
-    color: #2471A3;
+    color: #9B2B2B;
 }
