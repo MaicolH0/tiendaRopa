@@ -1,5 +1,5 @@
 extends('layouts.app')
-@section('title','NovaTV - Ver usuario')
+@section('title','tiendaRopa - Ver usuario')
 
 @section('content')
 

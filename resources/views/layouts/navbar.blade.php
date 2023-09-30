@@ -42,20 +42,27 @@
                         
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            {{-- @if(auth::user()->role->name == 'Admin')
-                            <a href="{{ url('users') }}" class="dropdown-item">
-                                <i class="fa fa-users"></i>
-                                Módulo Usuarios
-                            </a>
-                            <a href="{{ url('categories') }}" class="dropdown-item">
-                                <i class="fa fa-list-alt"></i>
-                                Módulo Categorias
-                            </a>
-                            <a href="{{ url('movies') }}" class="dropdown-item">
-                                <i class="fa fa-film"></i>
-                                Módulo Peliculas
-                            </a>
-                        @endif --}}
+                            @if (Auth::user()->role->name == 'Admin')
+                                <a href="{{ url('users') }}" class="dropdown-item">
+                                    <i class="fa fa-users"></i>
+                                    Módulo Usuarios
+                                </a>
+                                <a href="{{ url('categories') }}" class="dropdown-item">
+                                    <i class="fa fa-list-alt"></i>
+                                    Módulo Categorias
+                                </a>
+                                <a href="{{ url('products') }}" class="dropdown-item">
+                                    <i class="fa fa-film"></i>
+                                    Módulo Productos
+                                </a>
+                            @endif
+
+                            @if (Auth::user()->role->name == 'Seller')
+                                <a href="{{ url('products') }}" class="dropdown-item">
+                                    <i class="fa fa-film"></i>
+                                    Módulo Productos
+                                </a>
+                            @endif
                             
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();

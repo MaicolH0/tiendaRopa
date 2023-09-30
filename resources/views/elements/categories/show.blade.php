@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','NovaTV - Ver categoría')
+@section('title','tiendaRopa - Ver categoría')
 
 @section('content')
 
