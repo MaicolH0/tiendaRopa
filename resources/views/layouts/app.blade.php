@@ -37,6 +37,24 @@
     <script src="{{ asset('js/custom.js') }}"></script>
     <script>
         $(document).ready(function() {
+
+            $('.owl-carousel').owlCarousel({
+                loop:true,
+                margin:10,
+                nav:true,
+                responsive:{
+                    0:{
+                        items: 1
+                    },
+                    600:{
+                        items: 2
+                    },
+                    1000:{
+                        items:3
+                    }
+                }
+            });
+
             $('#photo').change(function(event) {
                 let reader = new FileReader();
                 reader.onload = function(event) {
@@ -80,6 +98,24 @@
                     timer: 2500
                 })
             @endif
+
+            /* --- */
+            $('#filter').change(function(event){
+                event.preventDefault();
+                option = $(this).val();
+                $t = $('meta[name="csrf-token"]').attr('content')
+                $('.loader').removeClass('d-none');
+                $('#list-filter').hide();
+                $sto = setTimeout(function(){
+                    clearTimeout($sto);
+                    console.log(option);
+                    $.post('category/filter', {category_id: option, _token: $t}, function(data){
+                        $('.loader').addClass('d-none');
+                        $('#list-filter').html(data);
+                        $('#list-filter').fadeIn('slow');
+                    });
+                },1000);
+            });
         });
     </script>
 
